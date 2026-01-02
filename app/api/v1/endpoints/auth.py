@@ -17,9 +17,15 @@ def register(
     db: Session = Depends(deps.get_db),
     user_in: schemas.UserCreate,
 ) -> Any:
+    """
+    Register a new user.
+    """
     user = crud.user.get_by_email(db, email=user_in.email)
     if user:
         raise HTTPException(status_code=400, detail="Email already taken")
+    
+    user_in.role = "user"
+    
     user = crud.user.create(db, obj_in=user_in)
     
     access_token_expires = timedelta(minutes=settings.JWT_ACCESS_EXPIRATION_MINUTES)

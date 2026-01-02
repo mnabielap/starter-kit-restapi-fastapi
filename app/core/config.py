@@ -5,7 +5,7 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 class Settings(BaseSettings):
     # App Settings
-    API_V1_STR: str = "/api/v1"
+    API_V1_STR: str = "/v1"
     PROJECT_NAME: str = "FastAPI Starter Kit"
     ENVIRONMENT: str = "development"
 

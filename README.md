@@ -187,20 +187,20 @@ This project includes a built-in automated testing suite in the `api_tests/` fol
 **Step 1: Login as Admin (Run this first!)**
 This saves the Access Token to `api_tests/secrets.json`.
 ```bash
-python api_tests/auth_login.py
+python api_tests/A2.auth_login.py
 ```
 
 **Step 2: Run User Operations**
 Create, List, Update, or Delete users.
 ```bash
-python api_tests/users_create.py
-python api_tests/users_get_all.py
+python api_tests/B1.user_create.py
+python api_tests/B2.user_get_all.py
 ```
 
 **Step 3: Test Auth Features**
 ```bash
-python api_tests/auth_refresh_tokens.py
-python api_tests/auth_logout.py
+python api_tests/A3.auth_refresh.py
+python api_tests/A6.auth_logout.py
 ```
 
 Check the `api_tests/*.json` files for the detailed output of each request!

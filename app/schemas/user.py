@@ -1,3 +1,4 @@
+from typing import List
 from pydantic import BaseModel, EmailStr, Field
 
 # Shared properties
@@ -11,9 +12,6 @@ class UserBase(BaseModel):
 # Properties to receive via API on creation
 class UserCreate(UserBase):
     password: str = Field(min_length=8, description="Password must be at least 8 characters")
-
-    # In strict FastAPI/Pydantic, we usually validate password complexity here if needed,
-    # but min_length is often enough for the schema.
 
 # Properties to receive via API on update
 class UserUpdate(BaseModel):
@@ -31,3 +29,11 @@ class UserResponse(UserBase):
     model_config = {
         "from_attributes": True
     }
+
+# New Schema for Pagination
+class UserPaginatedResponse(BaseModel):
+    results: List[UserResponse]
+    count: int
+    page: int
+    limit: int
+    total_pages: int

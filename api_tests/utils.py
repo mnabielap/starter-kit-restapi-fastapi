@@ -6,7 +6,7 @@ import time
 from urllib.parse import urlparse
 
 # --- CONFIGURATION constants ---
-BASE_URL = "http://localhost:5005/v1" 
+BASE_URL = "http://localhost:3000/v1" 
 CONFIG_FILE_BASE = "secrets.json"
 
 # --- HELPER: Config Management (Secrets) ---

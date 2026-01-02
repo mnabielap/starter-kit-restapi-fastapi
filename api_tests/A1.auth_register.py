@@ -1,25 +1,34 @@
 import sys
 import os
+import time
 sys.path.append(os.path.abspath(os.path.dirname(__file__)))
-import utils
+from utils import send_and_print, BASE_URL, save_config
 
-# --- SETUP ---
-ENDPOINT = "/auth/register"
-OUTPUT_FILE = f"{os.path.splitext(os.path.basename(__file__))[0]}.json"
+# Generate a unique email to avoid conflict
+unique_id = int(time.time())
+email = f"testuser_{unique_id}@example.com"
+
+print(f"--- REGISTERING NEW USER: {email} ---")
+
+url = f"{BASE_URL}/auth/register"
 
 payload = {
-    "email": "newuser@example.com",
+    "name": "Test User Automator",
+    "email": email,
     "password": "password123",
-    "name": "New Registered User"
+    "role": "user",
 }
 
-# --- EXECUTE ---
-response = utils.send_and_print(
-    url=f"{utils.BASE_URL}{ENDPOINT}",
+response = send_and_print(
+    url=url,
     method="POST",
     body=payload,
-    output_file=OUTPUT_FILE
+    output_file=f"{os.path.splitext(os.path.basename(__file__))[0]}.json"
 )
 
+# Optional: Save tokens if you want to use this user immediately
 if response.status_code == 201:
-    print("Registration Successful!")
+    data = response.json()
+    save_config("accessToken", data['tokens']['access']['token'])
+    save_config("refreshToken", data['tokens']['refresh']['token'])
+    print(">>> Registration successful. Tokens saved to secrets.json.")
